@@ -84,26 +84,30 @@ st.markdown("""
     ----------------------------------------------------- */
 
     div.stButton {
-        display: flex;
-        justify-content: center;
-        margin-top: 25px;
-    }
+    margin-top: 25px;
+}
 
-    div.stButton > button {
-        width: 240px;
-        height: 52px;
+div.stButton > button {
+    height: 52px;
 
-        background-color: #198754;
-        color: #FFFFFF;
+    background-color: #198754;
+    color: #FFFFFF;
 
-        border: none;
-        border-radius: 8px;
+    border: none;
+    border-radius: 8px;
 
-        font-size: 17px;
-        font-weight: 600;
+    font-size: 17px;
+    font-weight: 600;
 
-        transition: all 0.2s ease;
-    }
+    transition: all 0.2s ease;
+}
+
+div.stButton > button:hover {
+    background-color: #146C43;
+    color: #FFFFFF;
+
+    box-shadow: 0 4px 12px rgba(25, 135, 84, 0.20);
+}
 
     div.stButton > button:hover {
         background-color: #146C43;
@@ -214,12 +218,14 @@ st.html("""
 # START PREDICTION
 # =========================================================
 
-if st.button("Start Screening"):
+col1, col2, col3 = st.columns([1, 2, 1])
 
-    st.session_state["page"] = "prediction"
+with col2:
+    if st.button("Start Screening", use_container_width=True):
 
-    st.rerun()
+        st.session_state["page"] = "prediction"
 
+        st.rerun()
 
 # =========================================================
 # HOW IT WORKS
