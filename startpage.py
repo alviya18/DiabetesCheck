@@ -155,7 +155,7 @@ st.markdown("""
 </div>
 
 <div class="main-subtitle">
-    A Simple Diabetes Risk Screening Tool
+    Diabetes Risk Screening 
 </div>
 """, unsafe_allow_html=True)
 
@@ -195,11 +195,11 @@ st.html("""
 
         is a simple tool that looks at the health and
         lifestyle information you provide and estimates
-        whether you may be at risk of diabetes.
+        whether you may be at risk of having diabetes.
 
         <br><br>
 
-        It uses a machine learning model to give you a
+        It uses a Artificial Intelligence to give you a
         quick screening result that can help you understand
         when you may need to pay more attention to your health.
 
@@ -208,107 +208,6 @@ st.html("""
 </div>
 """)
 
-
-# =========================================================
-# MEDICAL DISCLAIMER
-# =========================================================
-
-st.html("""
-<div style="
-    background:#FDECEC;
-
-    border-left:5px solid #DC3545;
-
-    padding:22px 28px;
-
-    border-radius:10px;
-
-    max-width:850px;
-
-    margin:25px auto 0 auto;
-">
-
-    <div style="
-        color:#B02A37;
-        font-size:18px;
-        font-weight:700;
-        margin-bottom:8px;
-    ">
-        ⚠️ Important: This is only a screening tool
-    </div>
-
-    <div style="
-        color:#4A2528;
-        font-size:14px;
-        line-height:1.7;
-    ">
-
-        DiabetesCheck does <strong>not diagnose diabetes</strong>
-        and should not be used as a replacement for a doctor,
-        medical examination, or laboratory tests.
-
-        <br><br>
-
-        Your result is only an initial screening indication.
-        If you are concerned about your health or receive a
-        result suggesting a risk of diabetes, please
-        <strong>consult a qualified doctor and get proper
-        medical confirmation.</strong>
-
-    </div>
-
-</div>
-""")
-
-
-# =========================================================
-# PRIVACY NOTICE
-# =========================================================
-
-st.html("""
-<div style="
-    background:#E8F5E9;
-
-    border-left:5px solid #198754;
-
-    padding:22px 28px;
-
-    border-radius:10px;
-
-    max-width:850px;
-
-    margin:18px auto 0 auto;
-">
-
-    <div style="
-        color:#146C43;
-        font-size:18px;
-        font-weight:700;
-        margin-bottom:8px;
-    ">
-        🔒 Your Privacy
-    </div>
-
-    <div style="
-        color:#263238;
-        font-size:14px;
-        line-height:1.7;
-    ">
-
-        DiabetesCheck does not ask for personal details such as
-        your <strong>name, phone number, email address, or home
-        address.</strong>
-
-        <br><br>
-
-        The information entered in the screening form is used
-        to generate the prediction and is not intended to
-        identify you personally.
-
-    </div>
-
-</div>
-""")
 
 
 # =========================================================
@@ -433,7 +332,7 @@ with col2:
             line-height:1.6;
         ">
             Our machine learning model analyses your
-            answers and estimates your diabetes risk.
+            answers and estimates your diabetes status.
         </div>
 
     </div>
@@ -518,10 +417,6 @@ st.html("""
     line-height:1.6;
 ">
 
-    <strong style="color:#263238;">
-        Please remember:
-    </strong>
-
     DiabetesCheck is an educational and screening tool.
     It cannot confirm whether a person has diabetes.
     For an accurate diagnosis, please consult a qualified
@@ -537,6 +432,6 @@ st.html("""
 
 st.html("""
 <div class="footer">
-    DiabetesCheck • Machine Learning Based Diabetes Screening
+    Developed by Alviya Shibu : )
 </div>
 """)
