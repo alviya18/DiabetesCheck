@@ -514,35 +514,34 @@ if current_question["type"] == "choice":
 
     options = current_question["options"]
 
-    columns = st.columns(2)
+    # Single-column layout
+    # This keeps the option order correct on both desktop and mobile.
 
     for i, option in enumerate(options):
 
-        with columns[i % 2]:
+        is_selected = (
+            st.session_state.answers.get(
+                current_question["key"]
+            ) == option
+        )
 
-            is_selected = (
-                st.session_state.answers.get(
-                    current_question["key"]
-                ) == option
-            )
+        button_label = (
+            f"✓  {option}"
+            if is_selected
+            else option
+        )
 
-            button_label = (
-                f"✓  {option}"
-                if is_selected
-                else option
-            )
+        if st.button(
+            button_label,
+            key=f"option_{current_step}_{i}",
+            use_container_width=True
+        ):
 
-            if st.button(
-                button_label,
-                key=f"option_{current_step}_{i}",
-                use_container_width=True
-            ):
+            st.session_state.answers[
+                current_question["key"]
+            ] = option
 
-                st.session_state.answers[
-                    current_question["key"]
-                ] = option
-
-                st.rerun()
+            st.rerun()
 
 
 # =========================================================
