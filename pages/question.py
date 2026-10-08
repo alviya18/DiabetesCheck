@@ -743,4 +743,4 @@ with next_col:
                     st.session_state.answers.copy()
                 )
 
-                st.switch_page("result.py")
+                st.switch_page("pages/result.py")
