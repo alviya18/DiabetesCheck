@@ -1,4 +1,5 @@
 import streamlit as st
+import base64
 
 # =========================================================
 # PAGE CONFIGURATION
@@ -16,14 +17,12 @@ st.set_page_config(
 # COLOR PALETTE
 # =========================================================
 #
-# Green      : #198754
-# Dark Green : #146C43
-# Light Green: #E8F5E9
-# Red        : #DC3545
-# Light Red  : #FDECEC
-# White      : #FFFFFF
-# Dark Text  : #263238
-# Grey Text  : #667085
+# Blue        : #4A90E2
+# Dark Blue   : #0D2B4D
+# Light Blue  : #EAF3FC
+# White       : #FFFFFF
+# Dark Text   : #263238
+# Grey Text   : #667085
 #
 # =========================================================
 
@@ -62,13 +61,15 @@ st.markdown("""
        HEADER
     ----------------------------------------------------- */
 
-    .main-title {
+    .logo-header {
         text-align: center;
-        color: #198754;
-        font-size: 48px;
-        font-weight: 700;
-        margin-top: 35px;
+        margin-top: 25px;
         margin-bottom: 5px;
+    }
+
+    .logo-header img {
+        width: 210px;
+        height: auto;
     }
 
     .main-subtitle {
@@ -84,36 +85,29 @@ st.markdown("""
     ----------------------------------------------------- */
 
     div.stButton {
-    margin-top: 25px;
-}
+        margin-top: 25px;
+    }
 
-div.stButton > button {
-    height: 52px;
+    div.stButton > button {
+        height: 52px;
 
-    background-color: #198754;
-    color: #FFFFFF;
-
-    border: none;
-    border-radius: 8px;
-
-    font-size: 17px;
-    font-weight: 600;
-
-    transition: all 0.2s ease;
-}
-
-div.stButton > button:hover {
-    background-color: #146C43;
-    color: #FFFFFF;
-
-    box-shadow: 0 4px 12px rgba(25, 135, 84, 0.20);
-}
-
-    div.stButton > button:hover {
-        background-color: #146C43;
+        background-color: #4A90E2;
         color: #FFFFFF;
 
-        box-shadow: 0 4px 12px rgba(25, 135, 84, 0.20);
+        border: none;
+        border-radius: 8px;
+
+        font-size: 17px;
+        font-weight: 600;
+
+        transition: all 0.2s ease;
+    }
+
+    div.stButton > button:hover {
+        background-color: #0D2B4D;
+        color: #FFFFFF;
+
+        box-shadow: 0 4px 12px rgba(74, 144, 226, 0.20);
     }
 
 
@@ -123,7 +117,7 @@ div.stButton > button:hover {
 
     .section-title {
         text-align: center;
-        color: #198754;
+        color: #4A90E2;
         font-size: 32px;
         font-weight: 650;
 
@@ -150,18 +144,34 @@ div.stButton > button:hover {
 
 
 # =========================================================
+# LOAD LOGO
+# =========================================================
+
+with open(
+    "assets/images/DiabetesCheckLogo.png",
+    "rb"
+) as image_file:
+
+    logo = base64.b64encode(
+        image_file.read()
+    ).decode()
+
+
+# =========================================================
 # HEADER
 # =========================================================
 
-st.markdown("""
-<div class="main-title">
-    🩺 DiabetesCheck
-</div>
-
-<div class="main-subtitle">
-    Diabetes Risk Screening 
-</div>
-""", unsafe_allow_html=True)
+st.markdown(
+    f"""
+    <div class="logo-header">
+        <img
+            src="data:image/png;base64,{logo}"
+            alt="DiabetesCheck Logo"
+        >
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 
 # =========================================================
@@ -176,9 +186,9 @@ st.html("""
 
     border-radius:18px;
 
-    border:1px solid #DFF3E7;
+    border:1px solid #D9EAF8;
 
-    box-shadow:0 5px 20px rgba(25,135,84,0.10);
+    box-shadow:0 5px 20px rgba(74,144,226,0.10);
 
     text-align:center;
 
@@ -193,7 +203,7 @@ st.html("""
         line-height:1.75;
     ">
 
-        <strong style="color:#198754;">
+        <strong style="color:#4A90E2;">
             DiabetesCheck
         </strong>
 
@@ -213,7 +223,6 @@ st.html("""
 """)
 
 
-
 # =========================================================
 # START PREDICTION
 # =========================================================
@@ -221,11 +230,13 @@ st.html("""
 col1, col2, col3 = st.columns([1, 2, 1])
 
 with col2:
-    if st.button("Start Screening", use_container_width=True):
 
-        st.session_state["page"] = "prediction"
+    if st.button(
+        "Start Screening",
+        use_container_width=True
+    ):
+        st.switch_page("pages/question.py")
 
-        st.rerun()
 
 # =========================================================
 # HOW IT WORKS
@@ -250,32 +261,27 @@ with col1:
     st.html("""
     <div style="
         background:#FFFFFF;
-
-        padding:30px 25px;
-
+        padding:20px 25px;
         border-radius:16px;
-
-        min-height:185px;
-
+        height:210px;
+        box-sizing:border-box;
         text-align:center;
-
-        border:1px solid #DFF3E7;
-
-        box-shadow:0 4px 15px rgba(25,135,84,0.08);
+        border:1px solid #D9EAF8;
+        box-shadow:0 4px 15px rgba(74,144,226,0.08);
     ">
 
         <div style="
             font-size:35px;
-            margin-bottom:12px;
+            margin-bottom:8px;
         ">
             📋
         </div>
 
         <div style="
-            color:#198754;
+            color:#4A90E2;
             font-size:19px;
             font-weight:600;
-            margin-bottom:10px;
+            margin-bottom:7px;
         ">
             Answer a Few Questions
         </div>
@@ -302,32 +308,27 @@ with col2:
     st.html("""
     <div style="
         background:#FFFFFF;
-
-        padding:30px 25px;
-
+        padding:20px 25px;
         border-radius:16px;
-
-        min-height:185px;
-
+        height:210px;
+        box-sizing:border-box;
         text-align:center;
-
-        border:1px solid #DFF3E7;
-
-        box-shadow:0 4px 15px rgba(25,135,84,0.08);
+        border:1px solid #D9EAF8;
+        box-shadow:0 4px 15px rgba(74,144,226,0.08);
     ">
 
         <div style="
             font-size:35px;
-            margin-bottom:12px;
+            margin-bottom:8px;
         ">
             🤖
         </div>
 
         <div style="
-            color:#198754;
+            color:#4A90E2;
             font-size:19px;
             font-weight:600;
-            margin-bottom:10px;
+            margin-bottom:7px;
         ">
             Get a Screening Result
         </div>
@@ -354,32 +355,27 @@ with col3:
     st.html("""
     <div style="
         background:#FFFFFF;
-
-        padding:30px 25px;
-
+        padding:20px 25px;
         border-radius:16px;
-
-        min-height:185px;
-
+        height:210px;
+        box-sizing:border-box;
         text-align:center;
-
-        border:1px solid #DFF3E7;
-
-        box-shadow:0 4px 15px rgba(25,135,84,0.08);
+        border:1px solid #D9EAF8;
+        box-shadow:0 4px 15px rgba(74,144,226,0.08);
     ">
 
         <div style="
             font-size:35px;
-            margin-bottom:12px;
+            margin-bottom:8px;
         ">
             👨‍⚕️
         </div>
 
         <div style="
-            color:#198754;
+            color:#4A90E2;
             font-size:19px;
             font-weight:600;
-            margin-bottom:10px;
+            margin-bottom:7px;
         ">
             Confirm With a Doctor
         </div>
@@ -406,7 +402,7 @@ st.html("""
 <div style="
     text-align:center;
 
-    background:#F8F9FA;
+    background:#F8FAFD;
 
     padding:18px 25px;
 
