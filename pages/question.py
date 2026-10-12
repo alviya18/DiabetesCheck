@@ -1,11 +1,6 @@
 import streamlit as st
 import base64
 
-
-# =========================================================
-# PAGE CONFIGURATION
-# =========================================================
-
 st.set_page_config(
     page_title="DiabetesCheck",
     page_icon="🩺",
@@ -14,20 +9,11 @@ st.set_page_config(
 )
 
 
-# =========================================================
-# SESSION STATE
-# =========================================================
-
 if "step" not in st.session_state:
     st.session_state.step = 0
 
 if "answers" not in st.session_state:
     st.session_state.answers = {}
-
-
-# =========================================================
-# CUSTOM CSS
-# =========================================================
 
 st.markdown(
     """
@@ -199,11 +185,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-
-
-# =========================================================
-# QUESTIONS
-# =========================================================
 
 questions = [
 
@@ -452,9 +433,6 @@ questions = [
 ]
 
 
-# =========================================================
-# CURRENT QUESTION
-# =========================================================
 
 current_step = st.session_state.step
 current_question = questions[current_step]
@@ -462,11 +440,6 @@ current_question = questions[current_step]
 total_questions = len(questions)
 
 progress = (current_step + 1) / total_questions
-
-
-# =========================================================
-# PROGRESS BAR
-# =========================================================
 
 st.markdown(
     f"""
@@ -482,11 +455,6 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
-
-# =========================================================
-# QUESTION
-# =========================================================
 
 st.markdown(
     f"""
@@ -506,16 +474,10 @@ st.markdown(
 )
 
 
-# =========================================================
-# CHOICE QUESTIONS
-# =========================================================
 
 if current_question["type"] == "choice":
 
     options = current_question["options"]
-
-    # Single-column layout
-    # This keeps the option order correct on both desktop and mobile.
 
     for i, option in enumerate(options):
 
@@ -542,11 +504,6 @@ if current_question["type"] == "choice":
             ] = option
 
             st.rerun()
-
-
-# =========================================================
-# HEIGHT + WEIGHT
-# =========================================================
 
 elif current_question["type"] == "measurements":
 
@@ -590,9 +547,7 @@ elif current_question["type"] == "measurements":
         st.session_state.answers["Weight"] = weight
         st.session_state.answers["BMI"] = bmi
 
-# =========================================================
-# NUMBER QUESTIONS
-# =========================================================
+
 
 elif current_question["type"] == "number":
 
@@ -617,9 +572,6 @@ elif current_question["type"] == "number":
         ] = value
 
 
-# =========================================================
-# NAVIGATION
-# =========================================================
 
 st.markdown(
     '<div class="nav-space"></div>',
@@ -630,10 +582,6 @@ back_col, spacer, next_col = st.columns(
     [1, 2, 1]
 )
 
-
-# =========================================================
-# BACK BUTTON
-# =========================================================
 
 with back_col:
 
@@ -647,11 +595,6 @@ with back_col:
             st.session_state.step -= 1
 
             st.rerun()
-
-
-# =========================================================
-# NEXT BUTTON
-# =========================================================
 
 with next_col:
 
@@ -695,11 +638,6 @@ with next_col:
                 st.session_state.step += 1
 
                 st.rerun()
-
-
-# =========================================================
-# FINAL CHECK
-# =========================================================
 
     else:
 
