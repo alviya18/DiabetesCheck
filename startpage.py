@@ -277,7 +277,7 @@ with col2:
             font-size:35px;
             margin-bottom:8px;
         ">
-            🤖
+            🔎
         </div>
 
         <div style="
