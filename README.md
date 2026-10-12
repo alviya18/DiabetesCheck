@@ -4,11 +4,6 @@
 
 ### ML Based Diabetes Disease Prediction System
 
-<p>
-  A machine learning web application developed using
-  <b>Random Forest</b> and <b>Streamlit</b> for diabetes disease prediction.
-</p>
-
 <br>
 
 <img src="https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white">
@@ -20,15 +15,13 @@
 
 ---
 
-## 🌸 About DiabetesCheck
-
 **DiabetesCheck** is a machine learning based web application designed to perform **diabetes disease prediction** using non invasive indicators.
 
 The project uses the **2021 Behavioral Risk Factor Surveillance System (BRFSS)** dataset and applies data preprocessing, feature selection, class balancing, and machine learning techniques to develop a predictive model.
 
 The trained **Random Forest Classifier** is integrated into a **Streamlit web application**, providing users with a simple interface for entering the required information and obtaining a prediction.
 
-> 📝 **Note:** DiabetesCheck is an academic project developed for educational purposes. The prediction provided by the system should not be considered a medical diagnosis.
+📝 **Note:** DiabetesCheck is an academic project developed for educational purposes. The prediction provided by the system should not be considered a medical diagnosis.
 
 ---
 
