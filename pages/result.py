@@ -6,11 +6,6 @@ import base64
 import re
 from pathlib import Path
 
-
-# =========================================================
-# PAGE CONFIGURATION
-# =========================================================
-
 st.set_page_config(
     page_title="DiabetesCheck Result",
     page_icon="🩺",
@@ -18,20 +13,9 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-
-# =========================================================
-# PATHS
-# =========================================================
-
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 MODEL_PATH = BASE_DIR / "random_forest.pkl"
 LOGO_PATH = BASE_DIR / "assets" / "images" / "DiabetesCheckLogo.png"
-
-
-# =========================================================
-# LOAD LOGO BASE64 FOR WATERMARK
-# =========================================================
 
 logo_base64 = ""
 if LOGO_PATH.exists():
@@ -39,15 +23,13 @@ if LOGO_PATH.exists():
         logo_base64 = base64.b64encode(f.read()).decode()
 
 
-# =========================================================
-# PAGE CSS (BRIGHTER BACKGROUND & REORDERED RESULT LAYOUT)
-# =========================================================
-
 st.markdown(f"""
 <style>
 /* App background watermark with higher brightness/lower opacity */
 .stApp {{
-    background-image: linear-gradient(rgba(255, 255, 255, 0.80), rgba(255, 255, 255, 0.80)), url("data:image/png;base64,{logo_base64}");
+    background-image: linear-gradient(rgba(255, 255, 255, 0.80), 
+    rgba(255, 255, 255, 0.80)),
+    url("data:image/png;base64,{logo_base64}");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 650px auto;
@@ -139,11 +121,6 @@ if "questionnaire" not in st.session_state:
 
 answers = st.session_state["questionnaire"]
 
-
-# =========================================================
-# LOAD RANDOM FOREST MODEL
-# =========================================================
-
 try:
     loaded_model = joblib.load(MODEL_PATH)
 
@@ -160,9 +137,8 @@ except Exception as e:
     st.stop()
 
 
-# =========================================================
-# HELPER FUNCTIONS
-# =========================================================
+
+
 
 def yes_no(value):
     if isinstance(value, bool):
@@ -173,7 +149,6 @@ def yes_no(value):
     if value in ["no", "n", "false", "0"]:
         return 0
     return int(float(value))
-
 
 def convert_age(value):
     if isinstance(value, (int, float, np.integer, np.floating)):
@@ -201,7 +176,6 @@ def convert_age(value):
         return age_mapping[value]
     raise ValueError(f"Unknown age category: {value}")
 
-
 def convert_sex(value):
     if isinstance(value, (int, float, np.integer, np.floating)):
         value = int(value)
@@ -213,7 +187,6 @@ def convert_sex(value):
     if value == "male":
         return 1
     raise ValueError(f"Unknown sex value: {value}")
-
 
 def convert_general_health(value):
     if isinstance(value, (int, float, np.integer, np.floating)):
@@ -231,7 +204,6 @@ def convert_general_health(value):
     if value in mapping:
         return mapping[value]
     raise ValueError(f"Unknown general health value: {value}")
-
 
 def convert_education(value):
     if isinstance(value, (int, float, np.integer, np.floating)):
@@ -260,11 +232,6 @@ def convert_education(value):
     if "never" in value:
         return 1
     raise ValueError(f"Unknown education value: {value}")
-
-
-# =========================================================
-# INCOME CONVERSION
-# =========================================================
 
 INR_PER_USD = 96.76
 
@@ -297,36 +264,56 @@ def convert_income(value):
         return 1
     if "75,000 or more" in lower or "75000 or more" in lower or "75,000+" in lower or "75k+" in lower or "75 lakh" in lower:
         return 8
-
-    if "$10,000" in text and "$15,000" in text: return 2
-    if "$15,000" in text and "$20,000" in text: return 3
-    if "$20,000" in text and "$25,000" in text: return 4
-    if "$25,000" in text and "$35,000" in text: return 5
-    if "$35,000" in text and "$50,000" in text: return 6
-    if "$50,000" in text and "$75,000" in text: return 7
+    if "$10,000" in text and "$15,000" in text: 
+        return 2
+    if "$15,000" in text and "$20,000" in text: 
+        return 3
+    if "$20,000" in text and "$25,000" in text: 
+        return 4
+    if "$25,000" in text and "$35,000" in text: 
+        return 5
+    if "$35,000" in text and "$50,000" in text: 
+        return 6
+    if "$50,000" in text and "$75,000" in text: 
+        return 7
 
     lakh_numbers = re.findall(r"(\d+(?:\.\d+)?)\s*(?:lakh|lakhs)", lower)
     if len(lakh_numbers) >= 2:
         upper_lakh = float(lakh_numbers[1])
-        if upper_lakh <= 9.676: return 1
-        elif upper_lakh <= 14.514: return 2
-        elif upper_lakh <= 19.352: return 3
-        elif upper_lakh <= 24.190: return 4
-        elif upper_lakh <= 33.866: return 5
-        elif upper_lakh <= 48.380: return 6
-        elif upper_lakh <= 72.570: return 7
-        else: return 8
-
+        if upper_lakh <= 9.676: 
+            return 1
+        elif upper_lakh <= 14.514:
+            return 2
+        elif upper_lakh <= 19.352: 
+            return 3
+        elif upper_lakh <= 24.190: 
+            return 4
+        elif upper_lakh <= 33.866:
+            return 5
+        elif upper_lakh <= 48.380: 
+            return 6
+        elif upper_lakh <= 72.570:
+            return 7
+        else:
+            return 8
     if len(lakh_numbers) == 1:
         upper_lakh = float(lakh_numbers[0])
-        if upper_lakh <= 9.676: return 1
-        elif upper_lakh <= 14.514: return 2
-        elif upper_lakh <= 19.352: return 3
-        elif upper_lakh <= 24.190: return 4
-        elif upper_lakh <= 33.866: return 5
-        elif upper_lakh <= 48.380: return 6
-        elif upper_lakh <= 72.570: return 7
-        else: return 8
+        if upper_lakh <= 9.676: 
+            return 1
+        elif upper_lakh <= 14.514:
+            return 2
+        elif upper_lakh <= 19.352: 
+            return 3
+        elif upper_lakh <= 24.190:
+            return 4
+        elif upper_lakh <= 33.866: 
+            return 5
+        elif upper_lakh <= 48.380:
+            return 6
+        elif upper_lakh <= 72.570:
+            return 7
+        else:
+            return 8
 
     cleaned = text.replace("₹", "").replace(",", "").strip()
     try:
@@ -338,19 +325,13 @@ def convert_income(value):
     raise ValueError(f"Unknown income value: {value}")
 
 
-# =========================================================
-# GET ANSWERS & PREDICT
-# =========================================================
-
 try:
     age = convert_age(answers["Age"])
     sex = convert_sex(answers["Sex"])
-
     height = float(answers["Height"])
     weight = float(answers["Weight"])
     height_m = height / 100
     bmi = weight / (height_m ** 2)
-
     high_bp = yes_no(answers["HighBP"])
     high_chol = yes_no(answers["HighChol"])
     chol_check = yes_no(answers["CholCheck"])
@@ -369,7 +350,6 @@ try:
     diff_walk = yes_no(answers["DiffWalk"])
     education = convert_education(answers["Education"])
     income = convert_income(answers["Income"])
-
     model_input = pd.DataFrame({
         "HighBP": [high_bp],
         "HighChol": [high_chol],
@@ -393,32 +373,24 @@ try:
         "Education": [education],
         "Income": [income]
     })
-
     feature_names = [
         "HighBP", "HighChol", "CholCheck", "BMI", "Smoker", "Stroke",
         "HeartDiseaseorAttack", "PhysActivity", "Fruits", "Veggies",
         "HvyAlcoholConsump", "AnyHealthcare", "NoDocbcCost", "GenHlth",
         "MentHlth", "PhysHlth", "DiffWalk", "Sex", "Age", "Education", "Income"
     ]
-
     if saved_features is not None:
         feature_names = saved_features
-
     model_input = model_input[feature_names]
-
     prediction = model.predict(model_input)[0]
     probabilities = model.predict_proba(model_input)[0]
     confidence_percentage = probabilities[int(prediction)] * 100
-
 except Exception as e:
     st.error("There was a problem processing your answers.")
     st.code(str(e))
     st.stop()
 
 
-# =========================================================
-# RESULT UI FORMATTING
-# =========================================================
 
 if int(prediction) == 1:
     result_statement = "Diabetic"
@@ -426,12 +398,6 @@ if int(prediction) == 1:
 else:
     result_statement = "Non-Diabetic"
     text_class = "not-diabetic-text"
-
-
-# =========================================================
-# RESULT DISPLAY (FULLY CENTERED & REORDERED)
-# =========================================================
-
 st.markdown(f"""
 <div class="result-container">
     <div class="probability-text">You are {confidence_percentage:.1f}% likely</div>
