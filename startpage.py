@@ -188,7 +188,7 @@ st.html("""
 
         <br><br>
 
-        It uses a Artificial Intelligence to give you a
+        It uses Artificial Intelligence to give you a
         quick screening result that can help you understand
         when you may need to pay more attention to your health.
 
