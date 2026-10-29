@@ -37,10 +37,6 @@ The trained **Random Forest Classifier** is integrated into a **Streamlit web ap
                     └──────────┬───────────┘
                                ↓
                     ┌──────────────────────┐
-                    │ Feature Selection    │
-                    └──────────┬───────────┘
-                               ↓
-                    ┌──────────────────────┐
                     │ Random Under-Sampling│
                     └──────────┬───────────┘
                                ↓
